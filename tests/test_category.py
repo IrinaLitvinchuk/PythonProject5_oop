@@ -1,7 +1,8 @@
 from src.category import Category
+from src.product import Product
 
 
-def test_init_Category(category1, products):
+def test_init_Category(category1: Category, products: list[Product]) -> None:
     """Проверяет корректность инициализации объектов класса Category"""
     assert category1.name == "Смартфоны"
     assert category1.description == (
@@ -11,7 +12,9 @@ def test_init_Category(category1, products):
     assert category1.products == products
 
 
-def test_category_and_product_count_reset(products, product4):
+def test_category_and_product_count_reset(
+    products: list[Product], product4: Product
+) -> None:
     """Проверяет подсчет количества продуктов и категорий"""
     # Сбросим счётчики перед тестом
     Category.category_count = 0
@@ -26,8 +29,10 @@ def test_category_and_product_count_reset(products, product4):
     assert Category.product_count == 4
 
 
-def test_multiple_category_counts(products, product4):
-    """Проверка, как счётчики работают при добавлении нескольких категорий подряд."""
+def test_multiple_category_counts(products: list[Product], product4: Product)\
+        -> None:
+    """Проверка, как счётчики работают при добавлении
+    нескольких категорий подряд."""
     Category.category_count = 0
     Category.product_count = 0
 
@@ -38,14 +43,13 @@ def test_multiple_category_counts(products, product4):
     assert Category.category_count == 3
     assert Category.product_count == 4  # 3+1+0
 
-def test_category_with_no_products():
+
+def test_category_with_no_products() -> None:
     """Проверяет создание категории, если список продуктов пустой"""
     Category.category_count = 0
     Category.product_count = 0
 
-    category = Category("Пустая категория",
-                        "Нет товаров",
-                        [])
+    category = Category("Пустая категория", "Нет товаров", [])
 
     assert category.name == "Пустая категория"
     assert category.products == []
@@ -53,7 +57,7 @@ def test_category_with_no_products():
     assert Category.product_count == 0
 
 
-def test_category_with_duplicate_products(product1):
+def test_category_with_duplicate_products(product1: Product) -> None:
     """Тест с нестандартными данными (например, дубликаты продуктов)"""
     Category.category_count = 0
     Category.product_count = 0
@@ -63,5 +67,3 @@ def test_category_with_duplicate_products(product1):
     assert len(category.products) == 2
     assert Category.category_count == 1
     assert Category.product_count == 2
-
-

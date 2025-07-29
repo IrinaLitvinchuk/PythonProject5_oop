@@ -1,11 +1,15 @@
-from pathlib import Path
 import json
-from src.product import Product
-from src.category import Category
+from pathlib import Path
 
-def load_data_from_json(filename: str) -> list[Category]:
+from src.category import Category
+from src.product import Product
+
+
+def load_data_from_json(filename: str | Path) -> list[Category]:
     """Загружает данные из JSON-файла и возвращает список объектов Category."""
-    file_path = Path(filename)  # теперь можно подавать и абсолютный, и относительный путь
+    file_path = Path(
+        filename
+    )  # теперь можно подавать и абсолютный, и относительный путь
 
     if not file_path.exists():
         raise FileNotFoundError(f"Файл {file_path} не найден.")
@@ -23,7 +27,7 @@ def load_data_from_json(filename: str) -> list[Category]:
                     name=p["name"],
                     description=p["description"],
                     price=p["price"],  # это может вызвать KeyError
-                    quantity=p["quantity"]
+                    quantity=p["quantity"],
                 )
                 products.append(product)
             except KeyError as e:
@@ -37,7 +41,10 @@ def load_data_from_json(filename: str) -> list[Category]:
 
 
 if __name__ == "__main__":
-    categories = load_data_from_json( r"C:\Users\Irina Litvinchuk\PycharmProjects\PythonProject5_oop\data\products.json")
+    categories = load_data_from_json(
+        r"C:\Users\Irina Litvinchuk\PycharmProjects\PythonProject5_oop\
+        data\products.json"
+    )
 
     for category in categories:
         print(f"{category.name}: {len(category.products)} товаров")
