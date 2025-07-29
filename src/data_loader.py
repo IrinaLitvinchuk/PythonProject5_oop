@@ -3,12 +3,9 @@ import json
 from src.product import Product
 from src.category import Category
 
-
 def load_data_from_json(filename: str) -> list[Category]:
     """Загружает данные из JSON-файла и возвращает список объектов Category."""
-    # Определим абсолютный путь к файлу, независимо от того, откуда запускается скрипт
-    base_dir = Path(__file__).resolve().parent.parent  # поднимаемся на уровень выше, из src/
-    file_path = base_dir / filename
+    file_path = Path(filename)  # теперь можно подавать и абсолютный, и относительный путь
 
     if not file_path.exists():
         raise FileNotFoundError(f"Файл {file_path} не найден.")
@@ -17,11 +14,22 @@ def load_data_from_json(filename: str) -> list[Category]:
         data = json.load(f)
 
     categories = []
+
     for cat in data:
-        products = [
-            Product(p["name"], p["description"], p["price"], p["quantity"])
-            for p in cat.get("products", [])
-        ]
+        products = []
+        for p in cat.get("products", []):
+            try:
+                product = Product(
+                    name=p["name"],
+                    description=p["description"],
+                    price=p["price"],  # это может вызвать KeyError
+                    quantity=p["quantity"]
+                )
+                products.append(product)
+            except KeyError as e:
+                print(f"Продукт пропущен из-за отсутствия ключа: {e}")
+                continue
+
         category = Category(cat["name"], cat["description"], products)
         categories.append(category)
 
@@ -29,7 +37,7 @@ def load_data_from_json(filename: str) -> list[Category]:
 
 
 if __name__ == "__main__":
-    categories = load_data_from_json("data/products.json")
+    categories = load_data_from_json( r"C:\Users\Irina Litvinchuk\PycharmProjects\PythonProject5_oop\data\products.json")
 
     for category in categories:
         print(f"{category.name}: {len(category.products)} товаров")
