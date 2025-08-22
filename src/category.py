@@ -20,7 +20,7 @@ class Category:
 
 
     def add_product(self, new_product: Product) -> None:
-        "Добавляет товар в категорию"
+        """Добавляет товар в категорию"""
         self.__products.append(new_product)
         Category.product_count += 1
 
