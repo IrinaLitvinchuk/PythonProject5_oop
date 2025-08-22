@@ -9,9 +9,8 @@ class Product:
     ) -> None:
         self.name = name
         self.description = description
-        self.__price = price # приватный атрибут
+        self.__price = price  # приватный атрибут
         self.quantity = quantity
-
 
     @property
     def price(self):
@@ -27,30 +26,30 @@ class Product:
 
         if value < old_price:
             user_input = input(
-                f"Старая цена: {old_price}. Вы хотите понизить цену до {value}? (y/n): "
+                f"Старая цена: {old_price}. "
+                f"Вы хотите понизить цену до {value}? (y/n): "
             )
-            if user_input.lower() == 'y':
+            if user_input.lower() == "y":
                 self.__price = value
             else:
                 print("Действие отменено. Цена не изменилась.")
         else:
             self.__price = value
 
-
     @classmethod
     def new_product(cls, data: dict):
         """Создает новый объект Product из словаря"""
-        return cls(
-            data["name"],
-            data["description"],
-            data["price"],
-            data["quantity"]
-        )
+        return cls(data["name"],
+                   data["description"],
+                   data["price"],
+                   data["quantity"])
 
     # Доп.метод для проверки дубликатов - Дополнительное задание (к заданию 3)
     @classmethod
-    def new_or_update_product(cls, data: dict, products: list["Product"]) -> "Product":
-        """Создает новый объект или обновляет существующий при совпадении имени."""
+    def new_or_update_product(cls, data: dict,
+                              products: list["Product"]) -> "Product":
+        """Создает новый объект или обновляет существующий
+        при совпадении имени."""
         # ищем дубликат по имени
         for product in products:
             if product.name == data["name"]:
