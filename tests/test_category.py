@@ -9,14 +9,18 @@ def test_init_Category(category1: Category, products: list[Product]) -> None:
         "Смартфоны, как средство не только коммуникации, "
         "но и получения дополнительных функций для удобства жизни"
     )
-    assert category1.products == products
+    # products теперь строка → проверим, что в ней есть все товары
+    output = category1.products
+    for product in products:
+        assert product.name in output
+        assert str(product.price) in output
+        assert str(product.quantity) in output
 
 
 def test_category_and_product_count_reset(
     products: list[Product], product4: Product
 ) -> None:
     """Проверяет подсчет количества продуктов и категорий"""
-    # Сбросим счётчики перед тестом
     Category.category_count = 0
     Category.product_count = 0
 
@@ -29,8 +33,7 @@ def test_category_and_product_count_reset(
     assert Category.product_count == 4
 
 
-def test_multiple_category_counts(products: list[Product], product4: Product)\
-        -> None:
+def test_multiple_category_counts(products: list[Product], product4: Product) -> None:
     """Проверка, как счётчики работают при добавлении
     нескольких категорий подряд."""
     Category.category_count = 0
@@ -52,7 +55,7 @@ def test_category_with_no_products() -> None:
     category = Category("Пустая категория", "Нет товаров", [])
 
     assert category.name == "Пустая категория"
-    assert category.products == []
+    assert category.products == ""  # строка пустая
     assert Category.category_count == 1
     assert Category.product_count == 0
 
@@ -64,6 +67,28 @@ def test_category_with_duplicate_products(product1: Product) -> None:
 
     category = Category("Повторы", "одинаковые", [product1, product1])
 
-    assert len(category.products) == 2
+    lines = category.products.splitlines()
+    assert len(lines) == 2
+    assert all(product1.name in line for line in lines)
     assert Category.category_count == 1
+    assert Category.product_count == 2
+
+
+def test_category_add_product_and_getter():
+    Category.category_count = 0
+    Category.product_count = 0
+    p1 = Product("Samsung Galaxy S23 Ultra", "256GB, Серый цвет, 200MP камера", 180000.0, 5)
+    p2 = Product("Iphone 15", "512GB, Gray space", 210000.0, 8)
+    category = Category("Смартфоны",
+        "Смартфоны, как средство не только коммуникации, но и получения дополнительных функций для удобства жизни",
+        [p1])
+
+    # проверка начального списка через геттер
+    output = category.products
+    assert "Samsung Galaxy S23 Ultra, 180000.0 руб. Остаток: 5 шт." in output
+
+    # добавление нового продукта
+    category.add_product(p2)
+    output = category.products
+    assert "Iphone 15, 210000.0 руб. Остаток: 8 шт." in output
     assert Category.product_count == 2
