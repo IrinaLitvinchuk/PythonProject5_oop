@@ -34,10 +34,10 @@ def test_load_data_from_json_success(tmp_path: Path) -> None:
     assert isinstance(categories, list)
     assert len(categories) == 1
     assert isinstance(categories[0], Category)
-    assert len(categories[0].products) == 1
-    assert isinstance(categories[0].products[0], Product)
+    assert len(categories[0].get_products()) == 1
+    assert isinstance(categories[0].get_products()[0], Product)
     assert categories[0].name == "Смартфоны"
-    assert categories[0].products[0].name == "Iphone 15"
+    assert categories[0].get_products()[0].name == "Iphone 15"
 
 
 def test_load_data_from_json_file_not_found() -> None:
@@ -88,5 +88,5 @@ def test_load_data_from_json_missing_price(tmp_path: Path) -> None:
     categories = load_data_from_json(file_path)
 
     assert len(categories) == 1
-    assert len(categories[0].products) == 1  # только Xiaomi загружен
-    assert categories[0].products[0].name == "Xiaomi"
+    assert len(categories[0].get_products()) == 1  # только Xiaomi загружен
+    assert categories[0].get_products()[0].name == "Xiaomi"
