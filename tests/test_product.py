@@ -74,3 +74,14 @@ def test_new_or_update_product_new():
     p = Product.new_or_update_product(data, products)
     assert p.name == "C"
     assert len(products) == 3
+
+
+def test_str(product1):
+    """Проверка корректности строкового представления"""
+    assert str(product1) == "Samsung Galaxy S23 Ultra, 180000.0 руб. Остаток: 5 шт."
+
+
+def test_add(product1, product2):
+    """Тестирование метода сложения для получения
+    суммы произведений цены на количество у двух объектов."""
+    assert product1 + product2 == 2580000.0

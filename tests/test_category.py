@@ -121,3 +121,8 @@ def test_category_add_product_and_getter(category1: Category,
     assert f"{p2.name}, {p2.price} руб. Остаток: {p2.quantity} шт." in output
 
     assert Category.product_count == 2
+
+
+def test_str(category1):
+    """Проверка корректности строкового представления категории"""
+    assert str(category1) == "Смартфоны, количество продуктов: 27 шт."

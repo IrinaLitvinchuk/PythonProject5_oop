@@ -18,6 +18,8 @@ class Category:
         Category.product_count += len(products)
 
     def __str__(self):
+        """Строковое отображение в следующем виде:
+        Название категории, количество продуктов: Х шт."""
         quantity = 0
         for product in self.__products:
             quantity += product.quantity
