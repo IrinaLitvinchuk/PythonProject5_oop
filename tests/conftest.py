@@ -24,6 +24,11 @@ def product1(products: list[Product]) -> Product:
 
 
 @pytest.fixture
+def product2(products: list[Product]) -> Product:
+    return products[1]
+
+
+@pytest.fixture
 def category1(products: list[Product]) -> Category:
     return Category(
         "Смартфоны",

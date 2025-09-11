@@ -17,6 +17,14 @@ class Category:
         Category.category_count += 1
         Category.product_count += len(products)
 
+    def __str__(self):
+        """Строковое отображение в следующем виде:
+        Название категории, количество продуктов: Х шт."""
+        quantity = 0
+        for product in self.__products:
+            quantity += product.quantity
+        return f"{self.name}, количество продуктов: {quantity} шт."
+
     def add_product(self, new_product: Product) -> None:
         """Добавляет товар в категорию"""
         self.__products.append(new_product)
