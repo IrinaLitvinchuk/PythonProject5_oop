@@ -126,11 +126,7 @@ def test_lawngrass_add(grass1, grass2):
 
 def test_add_error(smartphone1, grass1):
     """Корректная обработка ошибки при попытке сложить объекты разных классов"""
-    with pytest.raises(TypeError, match="Возникла ошибка TypeError при попытке сложения"):
+    with pytest.raises(
+        TypeError, match="Возникла ошибка TypeError при попытке сложения"
+    ):
         smartphone1 + grass1
-
-
-
-
-
-
