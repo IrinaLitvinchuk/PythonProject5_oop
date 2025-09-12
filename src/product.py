@@ -19,9 +19,11 @@ class Product:
 
     def __add__(self, other):
         """Получение суммы всех товаров на складе"""
-        result = ((self.__price * self.quantity)
+        if type(other) is Product:
+            result = ((self.__price * self.quantity)
                   + (other.__price * other.quantity))
-        return result
+            return result
+        raise TypeError
 
     @property
     def price(self):
@@ -93,6 +95,14 @@ class Smartphone(Product):
         self.memory = memory
         self.color = color
 
+    def __add__(self, other):
+        """Получение суммы всех товаров из одинаковых классов"""
+        if type(other) is Smartphone:
+            result = ((self.price * self.quantity)
+                  + (other.price * other.quantity))
+            return result
+        raise TypeError
+
 
 class LawnGrass(Product):
     country: str
@@ -104,3 +114,11 @@ class LawnGrass(Product):
         self.country = country
         self.germination_period = germination_period
         self.color = color
+
+    def __add__(self, other):
+        """Получение суммы всех товаров из одинаковых классов"""
+        if type(other) is LawnGrass:
+            result = ((self.price * self.quantity)
+                  + (other.price * other.quantity))
+            return result
+        raise TypeError
