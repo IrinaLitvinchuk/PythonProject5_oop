@@ -26,12 +26,13 @@ class Category:
         return f"{self.name}, количество продуктов: {quantity} шт."
 
     def add_product(self, new_product: Product) -> None:
-        """Добавляет товар в категорию"""
+        """Добавляет товар в категорию, таким образом, чтобы не было возможности
+        добавить вместо продукта или его наследников любой другой объект."""
         if isinstance(new_product, Product):
             self.__products.append(new_product)
             Category.product_count += 1
         else:
-            raise TypeError
+            raise TypeError("Возникла ошибка TypeError при добавлении не продукта")
 
     @property
     def products(self) -> str:

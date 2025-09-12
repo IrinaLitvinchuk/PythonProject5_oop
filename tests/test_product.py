@@ -1,3 +1,5 @@
+import pytest
+
 from src.product import Product
 
 
@@ -85,3 +87,50 @@ def test_add(product1, product2):
     """Тестирование метода сложения для получения
     суммы произведений цены на количество у двух объектов."""
     assert product1 + product2 == 2580000.0
+
+
+def test_smartphone_init(smartphone1):
+    """Проверяет корректность инициализации объектов подкласса Smartphone
+    от базового класса Product"""
+    assert smartphone1.name == "Samsung Galaxy S23 Ultra"
+    assert smartphone1.description == "256GB, Серый цвет, 200MP камера"
+    assert smartphone1.price == 180000.0
+    assert smartphone1.quantity == 5
+    assert smartphone1.efficiency == 95.5
+    assert smartphone1.model == "S23 Ultra"
+    assert smartphone1.memory == 256
+    assert smartphone1.color == "Серый"
+
+
+def test_lawngrass_init(grass1):
+    """Проверяет корректность инициализации объектов подкласса LawnGrass
+    от базового класса Product"""
+    assert grass1.name == "Газонная трава"
+    assert grass1.description == "Элитная трава для газона"
+    assert grass1.price == 500.0
+    assert grass1.quantity == 20
+    assert grass1.country == "Россия"
+    assert grass1.germination_period == "7 дней"
+    assert grass1.color == "Зеленый"
+
+
+def test_smartphone_add(smartphone1, smartphone2):
+    """Проверка корректности сложения товаров только из одинаковых классов продуктов."""
+    assert smartphone1 + smartphone2 == 2580000.0
+
+
+def test_lawngrass_add(grass1, grass2):
+    """Проверка корректности сложения товаров только из одинаковых классов продуктов."""
+    assert grass1 + grass2 == 16750.0
+
+
+def test_add_error(smartphone1, grass1):
+    """Корректная обработка ошибки при попытке сложить объекты разных классов"""
+    with pytest.raises(TypeError, match="Возникла ошибка TypeError при попытке сложения"):
+        smartphone1 + grass1
+
+
+
+
+
+

@@ -1,5 +1,7 @@
+import pytest
+
 from src.category import Category
-from src.product import Product
+from src.product import Product, Smartphone, LawnGrass
 
 
 def test_init_Category(category1: Category, products: list[Product]) -> None:
@@ -126,3 +128,9 @@ def test_category_add_product_and_getter(category1: Category,
 def test_str(category1):
     """Проверка корректности строкового представления категории"""
     assert str(category1) == "Смартфоны, количество продуктов: 27 шт."
+
+
+def test_category_add_product_error(category_smartphones):
+    """Корректная обработка ошибки при попытке добавить в категорию не продукт"""
+    with pytest.raises(TypeError, match="Возникла ошибка TypeError при добавлении не продукта"):
+        category_smartphones.add_product("Not a product")
