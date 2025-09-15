@@ -1,5 +1,7 @@
+import pytest
+
 from src.category import Category
-from src.product import Product
+from src.product import LawnGrass, Product, Smartphone
 
 
 def test_init_Category(category1: Category, products: list[Product]) -> None:
@@ -37,8 +39,7 @@ def test_category_and_product_count_reset(
     assert Category.product_count == 4
 
 
-def test_multiple_category_counts(products: list[Product],
-                                  product4: Product) -> None:
+def test_multiple_category_counts(products: list[Product], product4: Product) -> None:
     """Проверка, как счётчики работают при добавлении
     нескольких категорий подряд"""
     Category.category_count = 0
@@ -87,8 +88,7 @@ def test_category_with_duplicate_products(product1: Product) -> None:
     assert Category.product_count == 2
 
 
-def test_category_add_product_and_getter(category1: Category,
-                                         products: list[Product]):
+def test_category_add_product_and_getter(category1: Category, products: list[Product]):
     """Проверяет добавление товара и работу геттера products"""
     Category.category_count = 0
     Category.product_count = 0
@@ -126,3 +126,11 @@ def test_category_add_product_and_getter(category1: Category,
 def test_str(category1):
     """Проверка корректности строкового представления категории"""
     assert str(category1) == "Смартфоны, количество продуктов: 27 шт."
+
+
+def test_category_add_product_error(category_smartphones):
+    """Корректная обработка ошибки при попытке добавить в категорию не продукт"""
+    with pytest.raises(
+        TypeError, match="Возникла ошибка TypeError при добавлении не продукта"
+    ):
+        category_smartphones.add_product("Not a product")

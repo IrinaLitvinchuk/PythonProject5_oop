@@ -26,8 +26,7 @@ def test_load_data_from_json_success(tmp_path: Path) -> None:
     ]
 
     file_path = tmp_path / "test_data.json"
-    file_path.write_text(json.dumps(test_data, ensure_ascii=False),
-                         encoding="utf-8")
+    file_path.write_text(json.dumps(test_data, ensure_ascii=False), encoding="utf-8")
 
     categories = load_data_from_json(str(file_path))
 
@@ -82,8 +81,7 @@ def test_load_data_from_json_missing_price(tmp_path: Path) -> None:
     ]
 
     file_path = tmp_path / "incomplete_data.json"
-    file_path.write_text(json.dumps(test_data, ensure_ascii=False),
-                         encoding="utf-8")
+    file_path.write_text(json.dumps(test_data, ensure_ascii=False), encoding="utf-8")
 
     categories = load_data_from_json(file_path)
 

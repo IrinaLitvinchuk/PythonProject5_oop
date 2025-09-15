@@ -19,9 +19,11 @@ class Product:
 
     def __add__(self, other):
         """Получение суммы всех товаров на складе"""
-        result = ((self.__price * self.quantity)
-                  + (other.__price * other.quantity))
-        return result
+        if type(other) is Product:
+            result = ((self.__price * self.quantity) +
+                      (other.__price * other.quantity))
+            return result
+        raise TypeError
 
     @property
     def price(self):
@@ -50,10 +52,8 @@ class Product:
     @classmethod
     def new_product(cls, data: dict):
         """Создает новый объект Product из словаря"""
-        return cls(data["name"],
-                   data["description"],
-                   data["price"],
-                   data["quantity"])
+        return cls(data["name"], data["description"],
+                   data["price"], data["quantity"])
 
     # Доп.метод для проверки дубликатов - Дополнительное задание (к заданию 3)
     @classmethod
@@ -79,3 +79,65 @@ class Product:
         )
         products.append(new)
         return new
+
+
+class Smartphone(Product):
+    efficiency: float
+    model: str
+    memory: int
+    color: str
+
+    def __init__(
+        self,
+        name: str,
+        description: str,
+        price: float,
+        quantity: int,
+        efficiency: float,
+        model: str,
+        memory: int,
+        color: str,
+    ) -> None:
+        super().__init__(name, description, price, quantity)
+        self.efficiency = efficiency
+        self.model = model
+        self.memory = memory
+        self.color = color
+
+    def __add__(self, other):
+        """Получение суммы всех товаров из одинаковых классов"""
+        if type(other) is Smartphone:
+            result = ((self.price * self.quantity) +
+                      (other.price * other.quantity))
+            return result
+        raise (TypeError
+               ("Возникла ошибка TypeError при попытке сложения"))
+
+
+class LawnGrass(Product):
+    country: str
+    germination_period: str
+    color: str
+
+    def __init__(
+        self,
+        name: str,
+        description: str,
+        price: float,
+        quantity: int,
+        country: str,
+        germination_period: str,
+        color: str,
+    ) -> None:
+        super().__init__(name, description, price, quantity)
+        self.country = country
+        self.germination_period = germination_period
+        self.color = color
+
+    def __add__(self, other):
+        """Получение суммы всех товаров из одинаковых классов"""
+        if type(other) is LawnGrass:
+            result = ((self.price * self.quantity) +
+                      (other.price * other.quantity))
+            return result
+        raise TypeError("Возникла ошибка TypeError при попытке сложения")
