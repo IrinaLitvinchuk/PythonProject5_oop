@@ -115,8 +115,7 @@ class Smartphone(Product):
             result = ((self.price * self.quantity) +
                       (other.price * other.quantity))
             return result
-        raise (TypeError
-               ("Возникла ошибка TypeError при попытке сложения"))
+        raise (TypeError("Возникла ошибка TypeError при попытке сложения"))
 
 
 class LawnGrass(Product):
