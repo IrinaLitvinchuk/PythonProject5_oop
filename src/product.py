@@ -1,4 +1,8 @@
-class Product:
+from src.base_product import BaseProduct
+from src.print_mixin import PrintMixin
+
+
+class Product(BaseProduct, PrintMixin):
     name: str
     description: str
     price: float
@@ -11,6 +15,7 @@ class Product:
         self.description = description
         self.__price = price  # приватный атрибут
         self.quantity = quantity
+        super().__init__()
 
     def __str__(self):
         """Строковое отображение в следующем виде:
@@ -110,8 +115,7 @@ class Smartphone(Product):
             result = ((self.price * self.quantity) +
                       (other.price * other.quantity))
             return result
-        raise (TypeError
-               ("Возникла ошибка TypeError при попытке сложения"))
+        raise (TypeError("Возникла ошибка TypeError при попытке сложения"))
 
 
 class LawnGrass(Product):

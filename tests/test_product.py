@@ -80,7 +80,8 @@ def test_new_or_update_product_new():
 
 def test_str(product1):
     """Проверка корректности строкового представления"""
-    assert str(product1) == "Samsung Galaxy S23 Ultra, 180000.0 руб. Остаток: 5 шт."
+    assert str(product1) == ("Samsung Galaxy S23 Ultra, 180000.0 руб. "
+                             "Остаток: 5 шт.")
 
 
 def test_add(product1, product2):
@@ -115,17 +116,20 @@ def test_lawngrass_init(grass1):
 
 
 def test_smartphone_add(smartphone1, smartphone2):
-    """Проверка корректности сложения товаров только из одинаковых классов продуктов."""
+    """Проверка корректности сложения товаров
+    только из одинаковых классов продуктов."""
     assert smartphone1 + smartphone2 == 2580000.0
 
 
 def test_lawngrass_add(grass1, grass2):
-    """Проверка корректности сложения товаров только из одинаковых классов продуктов."""
+    """Проверка корректности сложения товаров
+    только из одинаковых классов продуктов."""
     assert grass1 + grass2 == 16750.0
 
 
 def test_add_error(smartphone1, grass1):
-    """Корректная обработка ошибки при попытке сложить объекты разных классов"""
+    """Корректная обработка ошибки при попытке сложить
+    объекты разных классов"""
     with pytest.raises(
         TypeError, match="Возникла ошибка TypeError при попытке сложения"
     ):

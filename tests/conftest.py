@@ -7,9 +7,10 @@ from src.product import LawnGrass, Product, Smartphone
 @pytest.fixture
 def products() -> list[Product]:
     return [
-        Product(
-            "Samsung Galaxy S23 Ultra", "256GB, Серый цвет, 200MP камера", 180000.0, 5
-        ),
+        Product("Samsung Galaxy S23 Ultra",
+                "256GB, Серый цвет, 200MP камера",
+                180000.0,
+                5),
         Product("Iphone 15", "512GB, Gray space", 210000.0, 8),
         Product("Xiaomi Redmi Note 11", "1024GB, Синий", 31000.0, 14),
     ]
@@ -67,7 +68,14 @@ def smartphone1() -> Smartphone:
 @pytest.fixture
 def smartphone2() -> Smartphone:
     return Smartphone(
-        "Iphone 15", "512GB, Gray space", 210000.0, 8, 98.2, "15", 512, "Gray space"
+        "Iphone 15",
+        "512GB, Gray space",
+        210000.0,
+        8,
+        98.2,
+        "15",
+        512,
+        "Gray space"
     )
 
 
@@ -112,13 +120,17 @@ def grass2() -> LawnGrass:
 
 
 @pytest.fixture
-def category_smartphones(smartphone1: Product, smartphone2: Product) -> Category:
+def category_smartphones(smartphone1: Product,
+                         smartphone2: Product) -> Category:
     return Category(
-        "Смартфоны", "Высокотехнологичные смартфоны",
-        [smartphone1, smartphone2])
+        "Смартфоны",
+        "Высокотехнологичные смартфоны",
+        [smartphone1, smartphone2]
+    )
 
 
 @pytest.fixture
 def category_grass(grass1: Product, grass2: Product) -> Category:
-    return Category("Газонная трава", "Различные виды газонной травы",
+    return Category("Газонная трава",
+                    "Различные виды газонной травы",
                     [grass1, grass2])
