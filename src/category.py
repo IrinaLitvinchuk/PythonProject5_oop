@@ -50,3 +50,14 @@ class Category:
         """Возвращает список объектов Product
         (для тестов и внутренней логики)"""
         return self.__products
+
+    def middle_price(self):
+        all_prices = 0
+        try:
+            for product in self.__products:
+                all_prices += product.price
+            middle_price = all_prices / len(self.__products)
+            return round(middle_price, 2)
+        except ZeroDivisionError:
+            return 0.0
+
