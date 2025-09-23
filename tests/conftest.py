@@ -134,3 +134,17 @@ def category_grass(grass1: Product, grass2: Product) -> Category:
     return Category("Газонная трава",
                     "Различные виды газонной травы",
                     [grass1, grass2])
+
+
+@pytest.fixture
+def category_for_middle_price(products: list[Product]) -> Category:
+    return  Category("Смартфоны",
+                     "Категория смартфонов",
+                     products)
+
+
+@pytest.fixture
+def category_empty():
+    return Category("Пустая категория",
+                    "Категория без продуктов",
+                    [])

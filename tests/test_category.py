@@ -137,3 +137,13 @@ def test_category_add_product_error(category_smartphones):
         TypeError, match="Возникла ошибка TypeError при добавлении не продукта"
     ):
         category_smartphones.add_product("Not a product")
+
+
+def test_middle_price(category_for_middle_price):
+    """Проверка подсчета среднего ценника всех товаров в классе Category"""
+    assert category_for_middle_price.middle_price() == 140333.33
+
+
+def test_empty_category(category_empty):
+    """Проверка обработки случая, когда в категории нет товаров"""
+    assert category_empty.middle_price() == 0.0

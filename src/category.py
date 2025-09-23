@@ -52,6 +52,7 @@ class Category:
         return self.__products
 
     def middle_price(self):
+        """Метод подсчета среднего ценника всех товаров"""
         all_prices = 0
         try:
             for product in self.__products:
