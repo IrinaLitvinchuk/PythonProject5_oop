@@ -134,3 +134,17 @@ def test_add_error(smartphone1, grass1):
         TypeError, match="Возникла ошибка TypeError при попытке сложения"
     ):
         smartphone1 + grass1
+
+
+def test_create_product_with_zero_quantity():
+    """Тестирует попытку создать товар с нулевым количеством.
+    Проверяем, что выбрасывается исключение ValueError с нужным сообщением."""
+    data_invalid = {
+        "name": "Бракованный товар",
+        "description": "Неверное количество",
+        "price": 1000.0,
+        "quantity": 0
+    }
+    with pytest.raises(ValueError,
+                       match="Товар с нулевым количеством не может быть добавлен"):
+        Product(**data_invalid)
